@@ -134,6 +134,92 @@ def step_impl(context, message):
     )
     assert(found)    
 
+from behave import when, then
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+@when(u'I press the "Create" button')
+def step_impl(context):
+    context.driver.find_element(By.ID, 'create-button').click()
+
+@then(u'I should see the message "Success"')
+def step_impl(context):
+    WebDriverWait(context.driver, 10).until(
+        EC.visibility_of_element_located((By.XPATH, "//div[contains(text(), 'Success')]"))
+    )
+
+@when(u'I press the "Clear" button')
+def step_impl(context):
+    context.driver.find_element(By.ID, 'clear-button').click()
+
+@when(u'I press the "Retrieve" button')
+def step_impl(context):
+    context.driver.find_element(By.ID, 'retrieve-button').click()
+
+@when(u'I press the "Search" button')
+def step_impl(context):
+    context.driver.find_element(By.ID, 'search-button').click()
+
+@when(u'I press the "Update" button')
+def step_impl(context):
+    context.driver.find_element(By.ID, 'update-button').click()
+
+@then(u'I should see "Fedora" in the results')
+def step_impl(context):
+    WebDriverWait(context.driver, 10).until(
+        EC.visibility_of_element_located((By.XPATH, "//div[contains(text(), 'Fedora')]"))
+    )
+
+@then(u'I should not see "Hat" in the results')
+def step_impl(context):
+    elements = context.driver.find_elements(By.XPATH, "//div[contains(text(), 'Hat')]")
+    assert len(elements) == 0, "Expected 'Hat' not to be in the results."
+
+@when(u'I press the "Delete" button')
+def step_impl(context):
+    context.driver.find_element(By.ID, 'delete-button').click()
+
+@then(u'I should see the message "Product has been Deleted!"')
+def step_impl(context):
+    WebDriverWait(context.driver, 10).until(
+        EC.visibility_of_element_located((By.XPATH, "//div[contains(text(), 'Product has been Deleted!')]"))
+    )
+
+@then(u'I should see "Hat" in the results')
+def step_impl(context):
+    WebDriverWait(context.driver, 10).until(
+        EC.visibility_of_element_located((By.XPATH, "//div[contains(text(), 'Hat')]"))
+    )
+
+@then(u'I should see "Shoes" in the results')
+def step_impl(context):
+    WebDriverWait(context.driver, 10).until(
+        EC.visibility_of_element_located((By.XPATH, "//div[contains(text(), 'Shoes')]"))
+    )
+
+@then(u'I should see "Big Mac" in the results')
+def step_impl(context):
+    WebDriverWait(context.driver, 10).until(
+        EC.visibility_of_element_located((By.XPATH, "//div[contains(text(), 'Big Mac')]"))
+    )
+
+@then(u'I should see "Sheets" in the results')
+def step_impl(context):
+    WebDriverWait(context.driver, 10).until(
+        EC.visibility_of_element_located((By.XPATH, "//div[contains(text(), 'Sheets')]"))
+    )
+
+@then(u'I should not see "Shoes" in the results')
+def step_impl(context):
+    elements = context.driver.find_elements(By.XPATH, "//div[contains(text(), 'Shoes')]")
+    assert len(elements) == 0, "Expected 'Shoes' not to be in the results."
+
+@then(u'I should not see "Sheets" in the results')
+def step_impl(context):
+    elements = context.driver.find_elements(By.XPATH, "//div[contains(text(), 'Sheets')]")
+    assert len(elements) == 0, "Expected 'Sheets' not to be in the results."
+
 
 ##################################################################
 # This code works because of the following naming convention:
@@ -161,3 +247,83 @@ def step_impl(context, element_name, text_string):
     )
     element.clear()
     element.send_keys(text_string)
+
+
+@when(u'I press the "Create" button')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When I press the "Create" button')
+
+
+@then(u'I should see the message "Success"')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then I should see the message "Success"')
+
+
+@when(u'I press the "Clear" button')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When I press the "Clear" button')
+
+
+@when(u'I press the "Retrieve" button')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When I press the "Retrieve" button')
+
+
+@when(u'I press the "Search" button')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When I press the "Search" button')
+
+
+@when(u'I press the "Update" button')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When I press the "Update" button')
+
+
+@then(u'I should see "Fedora" in the results')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then I should see "Fedora" in the results')
+
+
+@then(u'I should not see "Hat" in the results')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then I should not see "Hat" in the results')
+
+
+@when(u'I press the "Delete" button')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When I press the "Delete" button')
+
+
+@then(u'I should see the message "Product has been Deleted!"')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then I should see the message "Product has been Deleted!"')
+
+
+@then(u'I should see "Hat" in the results')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then I should see "Hat" in the results')
+
+
+@then(u'I should see "Shoes" in the results')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then I should see "Shoes" in the results')
+
+
+@then(u'I should see "Big Mac" in the results')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then I should see "Big Mac" in the results')
+
+
+@then(u'I should see "Sheets" in the results')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then I should see "Sheets" in the results')
+
+
+@then(u'I should not see "Shoes" in the results')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then I should not see "Shoes" in the results')
+
+
+@then(u'I should not see "Sheets" in the results')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then I should not see "Sheets" in the results')
