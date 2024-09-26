@@ -128,10 +128,13 @@ def get_products(product_id):
 
     product = Product.find(product_id)
     if not product:
-        abort(status.HTTP_404_NOT_FOUND, f"Product with id '{product_id}' was not found.")
+        abort(
+            status.HTTP_404_NOT_FOUND, f"Product with id '{product_id}' was not found."
+        )
 
     app.logger.info("Returning product: %s", product.name)
     return product.serialize(), status.HTTP_200_OK
+
 
 ######################################################################
 # UPDATE AN EXISTING PRODUCT
@@ -148,12 +151,15 @@ def update_products(product_id):
 
     product = Product.find(product_id)
     if not product:
-        abort(status.HTTP_404_NOT_FOUND, f"Product with id '{product_id}' was not found.")
+        abort(
+            status.HTTP_404_NOT_FOUND, f"Product with id '{product_id}' was not found."
+        )
 
     product.deserialize(request.get_json())
     product.id = product_id
     product.update()
-    return product.serialize(), status.HTTP_200_OK    
+    return product.serialize(), status.HTTP_200_OK
+
 
 ######################################################################
 # DELETE A PRODUCT
@@ -171,7 +177,7 @@ def delete_products(product_id):
     if product:
         product.delete()
 
-    return "", status.HTTP_204_NO_CONTENT    
+    return "", status.HTTP_204_NO_CONTENT
 
 
 ######################################################################
@@ -206,4 +212,4 @@ def list_products():
 
     results = [product.serialize() for product in products]
     app.logger.info("[%s] Products returned", len(results))
-    return results, status.HTTP_200_OK    
+    return results, status.HTTP_200_OK
