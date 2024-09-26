@@ -86,7 +86,9 @@ class TestProductRoutes(TestCase):
             test_product = ProductFactory()
             response = self.client.post(BASE_URL, json=test_product.serialize())
             self.assertEqual(
-                response.status_code, status.HTTP_201_CREATED, "Could not create test product"
+                response.status_code,
+                status.HTTP_201_CREATED,
+                "Could not create test product",
             )
             new_product = response.get_json()
             test_product.id = new_product["id"]
@@ -107,7 +109,7 @@ class TestProductRoutes(TestCase):
         response = self.client.get("/health")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
-        self.assertEqual(data['message'], 'OK')
+        self.assertEqual(data["message"], "OK")
 
     # ----------------------------------------------------------
     # TEST CREATE
@@ -209,7 +211,7 @@ class TestProductRoutes(TestCase):
         response = self.client.put(f"{BASE_URL}/{new_product['id']}", json=new_product)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         updated_product = response.get_json()
-        self.assertEqual(updated_product["description"], "unknown")       
+        self.assertEqual(updated_product["description"], "unknown")
 
     def test_delete_product(self):
         """It should Delete a Product"""
@@ -223,7 +225,7 @@ class TestProductRoutes(TestCase):
         response = self.client.get(f"{BASE_URL}/{test_product.id}")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         new_count = self.get_product_count()
-        self.assertEqual(new_count, product_count - 1)        
+        self.assertEqual(new_count, product_count - 1)
 
     def test_get_product_list(self):
         """It should Get a list of Products"""
@@ -246,7 +248,7 @@ class TestProductRoutes(TestCase):
         self.assertEqual(len(data), name_count)
         # check the data just to be sure
         for product in data:
-            self.assertEqual(product["name"], test_name) 
+            self.assertEqual(product["name"], test_name)
 
     def test_query_by_category(self):
         """It should Query Products by category"""
@@ -265,19 +267,18 @@ class TestProductRoutes(TestCase):
         for product in data:
             self.assertEqual(product["category"], category.name)
 
-
     def test_query_by_availability(self):
         """It should Query Products by availability"""
         products = self._create_products(10)
-        available_products = [product for product in products if product.available is True]
-        available_count = len(available_products)        
+        available_products = [
+            product for product in products if product.available is True
+        ]
+        available_count = len(available_products)
         # test for available
-        response = self.client.get(
-            BASE_URL, query_string="available=true"
-        )
+        response = self.client.get(BASE_URL, query_string="available=true")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
         self.assertEqual(len(data), available_count)
         # check the data just to be sure
         for product in data:
-            self.assertEqual(product["available"], True)            
+            self.assertEqual(product["available"], True)
